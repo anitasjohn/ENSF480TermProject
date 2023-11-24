@@ -1,3 +1,38 @@
+/**
+ * File: Address.java
+ * Created By: Group 11 (L03 B03)
+ * Submission: November 29, 2023
+ */
+
+
+
+
+import java.util.ArrayList;
+
 public class Crew {
-    
+    private ArrayList<Pilot> pilots;
+    private ArrayList<FlightAttendant> flightAttendants;
+
+    public Crew(ArrayList<Pilot> pilots, ArrayList<FlightAttendant> flightAttendants) {
+        this.pilots = pilots;
+        this.flightAttendants = flightAttendants;
+    }
+
+    public ArrayList<Pilot> getPilots() {
+        return pilots;
+    }
+
+    public void setPilots(ArrayList<Pilot> pilots) {
+        this.pilots = pilots;
+    }
+
+    public ArrayList<FlightAttendant> getFlightAttendants() {
+        return flightAttendants;
+    }
+
+    public void setFlightAttendants(ArrayList<FlightAttendant> flightAttendants) {
+        this.flightAttendants = flightAttendants;
+    }
+
+    // Other methods or functionalities related to Crew can be added here
 }
