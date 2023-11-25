@@ -34,5 +34,4 @@ public class Crew {
         this.flightAttendants = flightAttendants;
     }
 
-    // Other methods or functionalities related to Crew can be added here
 }
