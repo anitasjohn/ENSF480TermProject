@@ -2,19 +2,17 @@
 /* Not sure about this one */
 
 public class Pilot  {
+    private Name name;
 
-
-    private String name;
-
-    public Pilot(String name) {
+    public Pilot(Name name) {
         this.name = name;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Name name) {
         this.name = name;
     }
 }

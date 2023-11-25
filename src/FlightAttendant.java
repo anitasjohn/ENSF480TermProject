@@ -8,19 +8,29 @@
 
 /*  Has to access the database. */
 class FlightAttendant  {
-    private String name;
+    private Name name;
     private Email flightAttendantEmail; // _@flightattendant.ca
-    private String loginPasscode;
+    private int loginPasscode;
 
-    public FlightAttendant(String name) {
+    public FlightAttendant(Name name, Email email, int pass) {
         this.name = name;
+        this.flightAttendantEmail = email;
+        this.loginPasscode = pass;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Name name) {
         this.name = name;
+    }
+
+    public Email getFlightAttendantEmail(){
+        return this.flightAttendantEmail;
+    }
+
+    public int getFlightAttendantPasscode(){
+        return this.loginPasscode;
     }
 }
