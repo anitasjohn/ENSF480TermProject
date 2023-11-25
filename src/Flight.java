@@ -9,23 +9,25 @@
 
 public class Flight {
     // Private instance variables
-    private String destination;
-    private String location;
-    private String duration;
-    private int flightNumber;
-    private String takeoffNumber;
+    private String destination;     // place of destination
+    private Address location;        // address of airport 
+    private String duration;        // duration of flight
+    private int flightNumber;       // id of flight
+    private String takeoffNumber;   // gate number at airport 
+    private String timeOfFlight;    // time of the flight
 
     // Constructors
     public Flight() {
         // Default constructor
     }
 
-    public Flight(String destination, String location, String duration, int flightNumber, String takeoffNumber) {
+    public Flight(String destination, Address location, String duration, int flightNumber, String takeoffNumber, String time) {
         this.destination = destination;
         this.location = location;
         this.duration = duration;
         this.flightNumber = flightNumber;
         this.takeoffNumber = takeoffNumber;
+        this.timeOfFlight = time;
     }
 
     // Getter and setter methods
@@ -37,11 +39,11 @@ public class Flight {
         this.destination = destination;
     }
 
-    public String getLocation() {
+    public Address getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Address location) {
         this.location = location;
     }
 
@@ -72,10 +74,11 @@ public class Flight {
     public void printFlightDetails() {
         System.out.println("Flight Details:");
         System.out.println("Destination: " + destination);
-        System.out.println("Location: " + location);
+        System.out.println("Location: " + location.getAddress());
         System.out.println("Duration: " + duration);
         System.out.println("Flight Number: " + flightNumber);
         System.out.println("Takeoff Number: " + takeoffNumber);
+        System.out.print("Time of flight: " + timeOfFlight);
     }
 }
 

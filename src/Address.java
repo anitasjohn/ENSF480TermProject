@@ -9,17 +9,20 @@ public class Address {
     private String streetAddress;
     private String postalCode;
     private String city;
+    private String province;
     private String country;
+    
 
-    Address(String street, String postal, String cityString, String countryString){
+    Address(String street, String postal, String cityString,String provinceString, String countryString){
         this.streetAddress = street;
         this.postalCode = postal;
         this.city = cityString;
         this.country = countryString;
+        this.province = provinceString;
     }
 
     public String getAddress(){
-        String addressString = streetAddress + ", " + postalCode + ", " + city + ", " + country + "\n";
+        String addressString = streetAddress + ", " + postalCode + ", " + city + ", " + province+ ", " + country + "\n";
         return addressString;
     }
     

@@ -32,4 +32,8 @@ public class Name {
     public String getFullName(){
         return this.firstName + " " + lastName + "\n"; 
     }
+
+    public void printFullName(){
+        System.out.println(this.firstName + " " + this.lastName);
+    }
 }
