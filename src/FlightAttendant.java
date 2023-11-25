@@ -9,6 +9,8 @@
 /*  Has to access the database. */
 class FlightAttendant  {
     private String name;
+    private Email flightAttendantEmail; // _@flightattendant.ca
+    private String loginPasscode;
 
     public FlightAttendant(String name) {
         this.name = name;
