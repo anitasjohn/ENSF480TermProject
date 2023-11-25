@@ -80,6 +80,10 @@ public class Flight {
         System.out.println("Takeoff Number: " + takeoffNumber);
         System.out.print("Time of flight: " + timeOfFlight);
     }
+
+    public void getflightDetailsString(){
+        
+    }
 }
 
     

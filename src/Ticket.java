@@ -8,9 +8,11 @@
 
 public class Ticket {
     private Flight flight;
+    private String seatNum;
 
-    public Ticket(Flight flight) {
+    public Ticket(Flight flight, String seat) {
         this.flight = flight;
+        this.seatNum = seat;
     }
 
     public Flight getFlight() {
