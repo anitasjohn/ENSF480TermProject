@@ -1,5 +1,5 @@
 /**
- * File: Address.java
+ * File: Ticket.java
  * Created By: Group 11 (L03 B03)
  * Submission: November 29, 2023
  */
