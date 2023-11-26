@@ -31,4 +31,12 @@ public class Crew {
         this.flightAttendants = flightAttendants;
     }
 
+    public void addCrewMember(Pilot pilot){
+        this.pilots.add(pilot);
+    }
+
+    public void addCrewMember(FlightAttendant flightAttendant){
+        this.flightAttendants.add(flightAttendant);
+    }
+
 }

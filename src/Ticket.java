@@ -23,4 +23,8 @@ public class Ticket {
         this.flight = flight;
     }
 
+    public String getSeatNum(){
+        return this.seatNum;
+    }
+
 }

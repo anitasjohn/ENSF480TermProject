@@ -4,15 +4,12 @@
  * Submission: November 29, 2023
  */
 
-
-
-
 public class Flight {
     // Private instance variables
     private String destination;     // place of destination
     private Address location;        // address of airport 
     private String duration;        // duration of flight
-    private int flightNumber;       // id of flight
+    private int flightNumber;       // flight id
     private String takeoffNumber;   // gate number at airport 
     private String timeOfFlight;    // time of the flight
 
@@ -81,8 +78,11 @@ public class Flight {
         System.out.print("Time of flight: " + timeOfFlight);
     }
 
-    public void getflightDetailsString(){
-        
+    public String getflightDetailsString(){
+        String flightDetailsString = "Flight Details:\n Destination: " + this.destination + "\nLocation: " + this.location.getAddress() + "\nDuration: "
+        + this.duration + "\nFlight Number: " + this.flightNumber + "\nTakeoff Number: " + this.takeoffNumber + "\nTIme of flight: " + this.timeOfFlight + "\n";
+
+        return flightDetailsString;
     }
 }
 
