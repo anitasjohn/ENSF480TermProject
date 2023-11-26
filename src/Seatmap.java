@@ -14,9 +14,15 @@ public class Seatmap {
 
     // Constructor
     public Seatmap() {
-        businessClass = new ArrayList<>();
-        comfortClass = new ArrayList<>();
-        regularClass = new ArrayList<>();
+        businessClass = new ArrayList<Seat>();
+        comfortClass = new ArrayList<Seat>();
+        regularClass = new ArrayList<Seat>();
+    }
+
+    public Seatmap(ArrayList<Seat> b, ArrayList<Seat> c, ArrayList<Seat> r){
+        this.businessClass = b;
+        this.comfortClass = c;
+        this.regularClass = r;
     }
 
     // Method to pick a seat by seat number

@@ -7,19 +7,25 @@
 import java.util.ArrayList;
 
 public class Crew {
-    private ArrayList<Pilot> pilots;
+    private ArrayList<Name> pilots;
     private ArrayList<FlightAttendant> flightAttendants;
+    private Flight workOnFlight; // which flight this crew is working for 
 
-    public Crew(ArrayList<Pilot> pilots, ArrayList<FlightAttendant> flightAttendants) {
+    public Crew(){
+        this.pilots = new ArrayList<Name>();
+        this.flightAttendants = new ArrayList<FlightAttendant>();
+    }
+
+    public Crew(ArrayList<Name> pilots, ArrayList<FlightAttendant> flightAttendants) {
         this.pilots = pilots;
         this.flightAttendants = flightAttendants;
     }
 
-    public ArrayList<Pilot> getPilots() {
+    public ArrayList<Name> getPilots() {
         return pilots;
     }
 
-    public void setPilots(ArrayList<Pilot> pilots) {
+    public void setPilots(ArrayList<Name> pilots) {
         this.pilots = pilots;
     }
 
@@ -31,12 +37,25 @@ public class Crew {
         this.flightAttendants = flightAttendants;
     }
 
-    public void addCrewMember(Pilot pilot){
-        this.pilots.add(pilot);
+    public void addCrewMember(Name pilot){
+        if(this.pilots.size() < 2){
+            this.pilots.add(pilot);
+        }
+        else{
+            System.err.println("Reached max pilots on crew..");
+        }
     }
 
     public void addCrewMember(FlightAttendant flightAttendant){
         this.flightAttendants.add(flightAttendant);
+    }
+
+    public void setWorksOnFlight(Flight flight){
+        this.workOnFlight = flight;
+    }
+
+    public Flight getCrewFlight(){
+        return this.workOnFlight;
     }
 
 }

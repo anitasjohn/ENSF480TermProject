@@ -3,7 +3,7 @@
  * Created By: Group 11 (L03 B03)
  * Submission: November 29, 2023
  */
-
+import java.util.ArrayList;
 public class Aircraft {
     // Attributes
     private Flight flight;
@@ -12,10 +12,10 @@ public class Aircraft {
     private boolean inAir; // true if, aircraft has an appointed flight, for system admin
 
     // Constructor
-    public Aircraft(Flight flight, Crew flightCrew, Seatmap seatm, boolean state) {
+    public Aircraft(Flight flight, Crew flightCrew, ArrayList<Seat>business, ArrayList<Seat> comfort, ArrayList<Seat> regular, boolean state) {
         this.flight = flight;
         this.flightCrew = flightCrew;
-        this.seatmap = seatm;
+        this.seatmap = new Seatmap(business, comfort, regular);
         this.inAir = state;
     }
 

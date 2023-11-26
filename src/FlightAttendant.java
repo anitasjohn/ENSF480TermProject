@@ -7,7 +7,7 @@
 
 
 /*  Has to access the database. */
-class FlightAttendant  {
+public class FlightAttendant extends Crew{
     private Name name;
     private Email flightAttendantEmail; // _@flightattendant.ca
     private int loginPasscode;
