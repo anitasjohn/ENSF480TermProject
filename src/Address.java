@@ -22,7 +22,7 @@ public class Address {
     }
 
     public String getAddress(){
-        String addressString = streetAddress + ", " + postalCode + ", " + city + ", " + province+ ", " + country + "\n";
+        String addressString = streetAddress  + ", " + city + ", " + province+ ", " + country + ", " + postalCode +  "\n";
         return addressString;
     }
     

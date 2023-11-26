@@ -13,13 +13,19 @@ public class Users {
     private Address homeAddress;
     private Name name;
 
+    // replace args with your own
+    private AccessDatabase database = new AccessDatabase("jdbc:mysql://localhost/food_inventory","student","ensf");
+
     // Users ctor for registration 
     Users(String firstName, String lastName, String email, String password, String streetAddress, String postalCode, String city, String province, String country){
         this.name = new Name(firstName, lastName);
         this.userEmail = new Email(email);
         this.loginPassword = password;
         this.homeAddress = new Address(streetAddress, postalCode, city, province, country);
-        this.tickets = new ArrayList<>();
+        this.tickets = new ArrayList<Ticket>();
+        
+        database.initializeConnection();
+        database.insertNewUser(name, userEmail, loginPassword, homeAddress);
     }
 
     public Address getAddress(){
