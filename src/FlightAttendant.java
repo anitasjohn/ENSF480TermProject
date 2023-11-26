@@ -33,4 +33,11 @@ class FlightAttendant  {
     public int getFlightAttendantPasscode(){
         return this.loginPasscode;
     }
+
+    public void searchPassengers(){
+        // 1. insert flight number 
+        // 2. search passenger in flight 
+        // 3. view passenger ticket details? 
+    }
+
 }

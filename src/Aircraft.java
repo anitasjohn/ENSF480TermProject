@@ -9,7 +9,7 @@ public class Aircraft {
     private Flight flight;
     private Crew flightCrew;
     private Seatmap seatmap;
-    private boolean inAir; // true if, aircraft has an appointed flight
+    private boolean inAir; // true if, aircraft has an appointed flight, for system admin
 
     // Constructor
     public Aircraft(Flight flight, Crew flightCrew, Seatmap seatm, boolean state) {
