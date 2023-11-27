@@ -8,10 +8,12 @@
 
 public class Ticket {
     private Flight flight;
+    private String holder;
     private String seatNum;
 
-    public Ticket(Flight flight, String seat) {
+    public Ticket(Flight flight, String FName, String seat) {
         this.flight = flight;
+        this.holder = FName;
         this.seatNum = seat;
     }
 
@@ -21,6 +23,10 @@ public class Ticket {
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    public void setName(String name){
+        this.holder = name;
     }
 
     public String getSeatNum(){
