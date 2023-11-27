@@ -145,7 +145,7 @@ public class AccessDatabase {
     public ArrayList<Flight> fetchFLights(String destination){
         ArrayList<Flight> flights = new ArrayList<Flight>();
         String fromC, toC, fromA, toA, duration, time;
-        int price;
+        int price, flightNumber;
 
         try {
             PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM FLIGHTS WHERE Destination = ?");
@@ -153,13 +153,31 @@ public class AccessDatabase {
             results = myStmt.executeQuery();
 
             while(results.next()){
-                
+
+                flightNumber = results.getInt("FlightNumber");
+                fromC = results.getString("Departure");
+                toC = results.getString("Destination");
+                fromA = results.getString("DepartureAirport");
+                toA = results.getString("DestinationAirport");
+                duration = results.getString("Duration");
+                time = results.getString("FlightTime");
+                price = results.getInt("Price");
+                Flight flight = new Flight(fromC, toC, fromA, toA, duration, flightNumber, time, price);
+                flights.add(flight);
             }
 
+            myStmt.close();
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                 if(dbConnect != null){
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return flights;

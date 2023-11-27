@@ -15,14 +15,14 @@ public class Flight {
     private int flightNumber;       // flight id
     //private String takeoffNumber;   // gate number at airport 
     private String timeOfFlight;    // time of the flight
-    private String price;
+    private int price;
 
     // Constructors
     public Flight() {
         // Default constructor
     }
 
-    public Flight(String from, String to, String fromAirport, String toAirport , String duration, int flightNumber, String time, String price) {
+    public Flight(String from, String to, String fromAirport, String toAirport , String duration, int flightNumber, String time, int price) {
         //this.destination = destination;
         this.fromCity = from;
         this.toCity = to;
