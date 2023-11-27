@@ -77,9 +77,9 @@ public class Flight {
     }
 
     //AUTO GENERATED IN DATABASE
-    // public int getFlightNumber() {
-    //     return flightNumber;
-    // }
+    public int getFlightNumber() {
+        return flightNumber;
+    }
 
     // public void setFlightNumber(int flightNumber) {
     //     this.flightNumber = flightNumber;
