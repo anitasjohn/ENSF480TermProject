@@ -50,7 +50,7 @@ public class AccessDatabase {
     // user registration
     public boolean insertNewUser(Name name, Email email, String password, Address addr){
         try {
-            String query = "INSERT INTO REGISTERED_USERS (FirstName, LastName, Email, Pw, StreetAddr, PostalCode, City, Province, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO REGISTERED_USERS (FirstName, LastName, Email, Pw, FullAdress) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
             // setting values/parameters
@@ -215,6 +215,39 @@ public class AccessDatabase {
 
         return flights;
     }
+
+    // inserting into TICKETS table
+    public boolean insertNewPassenger(int flightNum, String FName, int seatNum){
+        try {
+            String query = "INSERT INTO TICKETS (FlightNumber, FName, SeatNum) VALUES = (?, ?, ?)";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            // setting values/parameters
+            myStmt.setInt(1, flightNum);
+            myStmt.setString(2, FName);
+            myStmt.setInt(3, seatNum);
+            
+
+            int rowCount = myStmt.executeUpdate();
+            myStmt.clearParameters();
+            myStmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                 if(dbConnect != null){
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true; // if inserted successfully
+    }
+
+    // get passengers given a flight number
 
     
 
