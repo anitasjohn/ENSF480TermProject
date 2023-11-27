@@ -141,6 +141,30 @@ public class AccessDatabase {
         return true;
     }
 
+    // get all flights for browsing
+    public ArrayList<Flight> fetchFLights(String destination){
+        ArrayList<Flight> flights = new ArrayList<Flight>();
+        String fromC, toC, fromA, toA, duration, time;
+        int price;
+
+        try {
+            PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM FLIGHTS WHERE Destination = ?");
+            myStmt.setString(1, destination);
+            results = myStmt.executeQuery();
+
+            while(results.next()){
+                
+            }
+
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
+        return flights;
+    }
+
 
 
     // add methods below as needed
