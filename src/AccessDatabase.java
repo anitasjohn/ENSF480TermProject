@@ -217,15 +217,16 @@ public class AccessDatabase {
     }
 
     // inserting into TICKETS table
-    public boolean insertNewPassenger(int flightNum, String FName, int seatNum){
+    public boolean insertNewPassenger(int flightNum, String FName, int seatNum, boolean is_insured){
         try {
-            String query = "INSERT INTO TICKETS (FlightNumber, FName, SeatNum) VALUES = (?, ?, ?)";
+            String query = "INSERT INTO TICKETS (FlightNumber, FName, SeatNum, Is_insured) VALUES = (?, ?, ?, ?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
             // setting values/parameters
             myStmt.setInt(1, flightNum);
             myStmt.setString(2, FName);
             myStmt.setInt(3, seatNum);
+            myStmt.setBoolean(4, is_insured);
             
 
             int rowCount = myStmt.executeUpdate();
@@ -253,6 +254,7 @@ public class AccessDatabase {
         ArrayList<String> holders = new ArrayList<>();
         int ticketNum ,flightNumber, seatNum;
         String holder;
+        boolean is_insured;
 
         try {
             PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM TICKETS WHERE FlightNumber = ?");
@@ -265,7 +267,9 @@ public class AccessDatabase {
                 flightNumber = results.getInt("FlightNumber");
                 holder = results.getString("FName");
                 seatNum = results.getInt("SeatNum");
-                String ticket = "Ticket Number: " + ticketNum + "   Flight Number: " + flightNumber + "   Holder: " + holder + "   Seat: " + seatNum;
+                is_insured = results.getBoolean("Is_insured");
+                String ticket = "Ticket Number: " + ticketNum + "   Flight Number: " + flightNumber + 
+                                    "   Holder: " + holder + "   Seat: " + seatNum + "   Insured: " + is_insured;
                 holders.add(ticket);
             }
 
