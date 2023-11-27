@@ -34,6 +34,7 @@ public class Flight {
         //this.takeoffNumber = takeoffNumber;
         this.timeOfFlight = time;
         this.price = price;
+
     }
 
     // Getter and setter methods

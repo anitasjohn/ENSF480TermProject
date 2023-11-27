@@ -141,7 +141,40 @@ public class AccessDatabase {
         return true;
     }
 
-    // get all flights for browsing
+    // flight attendant login
+    public boolean attendantLogin(String email, String pw){
+        try {
+            String query = "SELECT * FLIGHT_ATTENDANTS WHERE Email = ? AND Pw = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, email);
+            myStmt.setString(2, pw);
+
+            results = myStmt.executeQuery();
+
+            myStmt.close();
+
+            if(!results.next()){ // if no existing user
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            try {
+                 if(dbConnect != null){
+                    results.deleteRow(); // double check if this is correct
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    // get all flights for browsing given a destination city
     public ArrayList<Flight> fetchFLights(String destination){
         ArrayList<Flight> flights = new ArrayList<Flight>();
         String fromC, toC, fromA, toA, duration, time;
@@ -182,6 +215,20 @@ public class AccessDatabase {
 
         return flights;
     }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

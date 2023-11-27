@@ -32,7 +32,7 @@ public class Users {
         return this.homeAddress;
     }
 
-    public Email getUSerEmail(){
+    public Email getUserEmail(){
         return this.userEmail;
     }
 
