@@ -47,9 +47,10 @@ public class AccessDatabase {
         return this.PASSWORD;
     }
 
+    // user registration
     public boolean insertNewUser(Name name, Email email, String password, Address addr){
         try {
-            String query = "INSERT INTO REGISTED_USER (FirstName, LastName, Email, Pw, StreetAddr, PostalCode, City, Province, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO REGISTERED_USERS (FirstName, LastName, Email, Pw, StreetAddr, PostalCode, City, Province, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
 
             // setting values/parameters
@@ -77,6 +78,69 @@ public class AccessDatabase {
 
         return true; // if inserted successfully
     }
+
+    // validate email, to avoid duplicates
+    public boolean validateEmail(String inputEmail){
+        try {
+            String query = "SELECT * FROM REGISTERED_USERS WHERE Email = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, inputEmail);
+            results = myStmt.executeQuery();
+            myStmt.close();
+            if(results.next()){ // check if there is an existing user with same email
+                return false;
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                 if(dbConnect != null){
+                    results.deleteRow(); // double check if this is correct
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return true; // if there is no duplicate for same email
+    }
+
+    // user login
+    public boolean userLogin(String email, String pw){
+        try {
+            String query = "SELECT * REGISTERED_USERS WHERE Email = ? AND Pw = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setString(1, email);
+            myStmt.setString(2, pw);
+
+            results = myStmt.executeQuery();
+
+            myStmt.close();
+
+            if(!results.next()){ // if no existing user
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }finally {
+            try {
+                 if(dbConnect != null){
+                    results.deleteRow(); // double check if this is correct
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
 
 
     // add methods below as needed
