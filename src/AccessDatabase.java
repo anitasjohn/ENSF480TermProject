@@ -248,7 +248,44 @@ public class AccessDatabase {
     }
 
     // get passengers given a flight number
+    // returns a list of ticket holders
+    public ArrayList<String> fetchTicketHolders(int flightNum){
+        ArrayList<String> holders = new ArrayList<>();
+        int ticketNum ,flightNumber, seatNum;
+        String holder;
 
+        try {
+            PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM TICKETS WHERE FlightNumber = ?");
+            myStmt.setInt(1, flightNum);
+            results = myStmt.executeQuery();
+
+            while(results.next()){
+
+                ticketNum = results.getInt("TicketNum");
+                flightNumber = results.getInt("FlightNumber");
+                holder = results.getString("FName");
+                seatNum = results.getInt("SeatNum");
+                String ticket = "Ticket Number: " + ticketNum + "   Flight Number: " + flightNumber + "   Holder: " + holder + "   Seat: " + seatNum;
+                holders.add(ticket);
+            }
+
+            myStmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                 if(dbConnect != null){
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return holders;
+
+    }
     
 
 
