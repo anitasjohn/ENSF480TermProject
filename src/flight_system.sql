@@ -20,7 +20,11 @@ ALTER TABLE REGISTERED_USERS AUTO_INCREMENT = 100;
 INSERT INTO REGISTERED_USERS (FirstName, LastName, Email, Pw, FullAdress)
 VALUES
 ('Jan', 'Petallo', 'jp@email.com', 'ensf480', '2500 University Drive NW Calgary Alberta Canada T2N 1N4'),
-('Anita', 'John', 'jp@email.com', 'ensf480', '2501 University Avenue NW Calgary Alberta Canada T2N 1N4');
+('Anita', 'John', 'aj@email.com', 'ensf480', '2501 University Avenue NW Calgary Alberta Canada T2N 1N4'),
+('Shane', 'Abdi', 'shane@email.com', 'shane', '1307 Lakeview Cape, Victoria, BC V2N 6N8'),
+('Corinne', 'de Lima', 'corrine@email.com', 'corrine', '8854 Fiftieth Parkway NW, Calgary, Alberta T7A 8N1'),
+('Heba', 'Leon', 'heba@email.com', 'heba', '1594 Mountain View, Calgary, Alberta T5E 2B1'),
+('Geo', 'Zaman', 'geo@email.com', 'geo', '#9652 - 3507 Eighth Passage NW, Calgary, Alberta, T5W 8T5');
 
 
 DROP TABLE IF EXISTS FLIGHTS;
@@ -112,10 +116,103 @@ VALUES
 ('Edmonton', 'Calgary', 'YYC', 'YEG', '0h 57m', 'Dec 07, 2023 8:00 pm – 8:57 pm', 371 ),
 ('Edmonton', 'Calgary', 'YYC', 'YEG', '0h 54m', 'Dec 08, 2023 2:30 pm – 3:24 pm', 354);
 
+
+DROP TABLE IF EXISTS FLIGHT_ATTENDANTS;
+CREATE TABLE FLIGHT_ATTENDANTS (
+    FA_Number   int not null AUTO_INCREMENT,
+    FName       varchar(50),
+    Email       varchar(50),
+    Pw          varchar(25),
+    primary key (FA_Number)
+);
+
+ALTER TABLE FLIGHT_ATTENDANTS AUTO_INCREMENT = 1;
+
+INSERT INTO FLIGHT_ATTENDANTS (FName, Email, Pw)
+VALUES
+('Karla Audet', 'karla@flightattendant.ca', 'karla'),
+('Marcel Gonzalez', 'marcel@flightattendant.ca', 'marcel'),
+('Philip Richards', 'philip@flightattendant.ca', 'philip'),
+('Andrea Santiago', 'andrea@flightattendant.ca', 'andrea'),
+('Lorena Choi', 'lorena@flightattendant.ca', 'lorena'),
+('Travis Larouche', 'travis@flightattendant.ca', 'travis'),
+('Tatyana Carey', 'tatyana@flightattendant.ca', 'tatyana'),
+('Kai Thibault', 'kai@flightattendant.ca', 'kai'),
+('Kate Frechette', 'kate@flightattendant.ca', 'kate');
+
+DROP TABLE IF EXISTS TICKETS;
+CREATE TABLE TICKETS (
+    TicketNum       int not null AUTO_INCREMENT,
+    FlightNumber    int,
+    FName           varchar(50),
+    SeatNum         int,
+    primary key (TicketNum),
+    foreign key (FlightNumber) REFERENCES FLIGHTS(FlightNumber)
+);
+
+ALTER TABLE TICKETS AUTO_INCREMENT = 2000;
+
+INSERT INTO TICKETS (FlightNumber, FName, SeatNum)
+VALUES
+(1000, 'Jan Petallo', 5),
+(1000, 'Anita John', 10),
+(1000, 'Katherine Tubang', 15),
+(1000, 'Josh Debele', 20),
+(1000, 'Heba Leon', 21),
+(1000, 'Carly Corbett', 22),
+(1000, 'Zaman Zaman', 23),
+(1000, 'Rashid Audet', 25),
+(1000, 'André Cross', 30),
+(1000, 'Carly Corbett', 31),
+(1000, 'Santosh Dinh', 32),
+(1000, 'Tricia Hay', 33),
+
+(1001, 'Jan Petallo', 5),
+(1001, 'Anita John', 10),
+(1001, 'Katherine Tubang', 15),
+(1001, 'Josh Debele', 20),
+(1001, 'Heba Leon', 21),
+(1001, 'Carly Corbett', 22),
+(1001, 'Zaman Zaman', 23),
+(1001, 'Rashid Audet', 25),
+(1001, 'André Cross', 30),
+(1001, 'Carly Corbett', 31),
+(1001, 'Santosh Dinh', 32),
+(1001, 'Tricia Hay', 33),
+
+(1002, 'Jan Petallo', 5),
+(1002, 'Anita John', 10),
+(1002, 'Katherine Tubang', 15),
+(1003, 'Josh Debele', 20),
+(1004, 'Heba Leon', 21),
+(1005, 'Carly Corbett', 22),
+(1006, 'Zaman Zaman', 23),
+(1007, 'Rashid Audet', 25),
+(1008, 'André Cross', 30),
+(1009, 'Carly Corbett', 31),
+(1010, 'Santosh Dinh', 32),
+(1011, 'Tricia Hay', 33),
+
+(1012, 'Jan Petallo', 5),
+(1012, 'Anita John', 10),
+(1012, 'Katherine Tubang', 15),
+(1012, 'Josh Debele', 20),
+(1012, 'Heba Leon', 21),
+(1012, 'Carly Corbett', 22),
+(1013, 'Zaman Zaman', 23),
+(1013, 'Rashid Audet', 25),
+(1013, 'André Cross', 30),
+(1013, 'Carly Corbett', 31),
+(1013, 'Santosh Dinh', 32),
+(1011, 'Tricia Hay', 33);
+
+
 USE FLIGHT_SYSTEM;
 SHOW TABLES;
 SELECT * FROM REGISTERED_USERS;
 SELECT * FROM FLIGHTS;
+SELECT * FROM FLIGHT_ATTENDANTS;
+SELECT * FROM TICKETS;
 
 
 
