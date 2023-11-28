@@ -140,6 +140,29 @@ VALUES
 ('Kai Thibault', 'kai@flightattendant.ca', 'kai'),
 ('Kate Frechette', 'kate@flightattendant.ca', 'kate');
 
+DROP TABLE IF EXISTS AIRLINE_AGENTS;
+CREATE TABLE AIRLINE_AGENTS (
+    FA_Number   int not null AUTO_INCREMENT,
+    FName       varchar(50),
+    Email       varchar(50),
+    Pw          varchar(25),
+    primary key (FA_Number)
+);
+
+ALTER TABLE AIRLINE_AGENTS AUTO_INCREMENT = 1;
+
+INSERT INTO AIRLINE_AGENTS (FName, Email, Pw)
+VALUES
+('Karla Audet', 'karla@agent.ca', 'karla'),
+('Marcel Gonzalez', 'marcel@agent.ca', 'marcel'),
+('Philip Richards', 'philip@agent.ca', 'philip'),
+('Andrea Santiago', 'andrea@agent.ca', 'andrea'),
+('Lorena Choi', 'lorena@agent.ca', 'lorena'),
+('Travis Larouche', 'travis@agent.ca', 'travis'),
+('Tatyana Carey', 'tatyana@agent.ca', 'tatyana'),
+('Kai Thibault', 'kai@agent.ca', 'kai'),
+('Kate Frechette', 'kate@agent.ca', 'kate');
+
 DROP TABLE IF EXISTS TICKETS;
 CREATE TABLE TICKETS (
     TicketNum       int not null AUTO_INCREMENT,
@@ -213,6 +236,7 @@ SHOW TABLES;
 SELECT * FROM REGISTERED_USERS;
 SELECT * FROM FLIGHTS;
 SELECT * FROM FLIGHT_ATTENDANTS;
+SELECT * FROM AIRLINE_AGENTS;
 SELECT * FROM TICKETS;
 
 
