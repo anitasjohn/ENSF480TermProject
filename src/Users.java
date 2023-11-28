@@ -14,7 +14,7 @@ public class Users {
     private Name name;
 
     // replace args with your own
-    private AccessDatabase database = new AccessDatabase("jdbc:mysql://localhost/food_inventory","student","ensf");
+    private AccessDatabase database = new AccessDatabase();
 
     // Users ctor for registration 
     Users(String firstName, String lastName, String email, String password, String streetAddress, String postalCode, String city, String province, String country){

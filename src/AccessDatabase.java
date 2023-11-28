@@ -16,6 +16,12 @@ public class AccessDatabase {
     private Connection dbConnect;
     private ResultSet results;
 
+    public AccessDatabase(){
+        DBURL = "jdbc:mysql://localhost/flight_system";
+        USERNAME = "ENTER USERNAME HERE";
+        PASSWORD = "ENTER PASSWORD";
+    }
+
     public AccessDatabase(String url, String user, String pw) {
         // Database URL
         this.DBURL = url;

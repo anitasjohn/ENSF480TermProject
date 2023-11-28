@@ -5,7 +5,7 @@
  */
 
 public class AirlineAgentLogin {
-    private AccessDatabase database = new AccessDatabase("jdbc:mysql://localhost/food_inventory","student","ensf");
+    private AccessDatabase database = new AccessDatabase();
 
     public boolean validate(String email, String passcode){
         //Checks if any matches in database of logins
