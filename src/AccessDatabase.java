@@ -250,6 +250,7 @@ public class AccessDatabase {
 
     // get passengers given a flight number
     // returns a list of ticket holders
+    // ALTERNATIVELY, input are flight number and ticket number to get specific passenger
     public ArrayList<String> fetchTicketHolders(int flightNum){
         ArrayList<String> holders = new ArrayList<>();
         int ticketNum ,flightNumber, seatNum;
@@ -288,23 +289,39 @@ public class AccessDatabase {
         }
 
         return holders;
+    }
 
+
+
+    // remove a ticket from TICKETS table if cancelled
+    // ensure is_insured == true before using this method
+    // upon returning, the seat should be restored as well
+    public boolean deleteTicket(int ticketNum){
+        try {
+            String query = "DELETE FROM TICKETS WHERE TicketNum = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setInt(1, ticketNum);
+            myStmt.executeUpdate(); // should be 1
+
+            myStmt.close();
+
+        } catch (SQLException e) {
+            
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                 if(dbConnect != null){
+                    dbConnect.close();
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return true; // if deletion is successful
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // add methods below as needed
 }
