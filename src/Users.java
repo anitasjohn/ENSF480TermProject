@@ -44,6 +44,8 @@ public class Users {
         this.loginPassword = newPass;
     }
 
-    
+    public void addTicket(Ticket ticket){
+        tickets.add(ticket);
+    }
 
 }
