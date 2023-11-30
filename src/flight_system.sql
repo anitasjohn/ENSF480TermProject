@@ -27,6 +27,7 @@ VALUES
 ('Geo', 'Zaman', 'geo@email.com', 'geo', '#9652 - 3507 Eighth Passage NW, Calgary, Alberta, T5W 8T5');
 
 
+
 DROP TABLE IF EXISTS FLIGHTS;
 CREATE TABLE FLIGHTS (
     FlightNumber        int not null AUTO_INCREMENT,
@@ -39,6 +40,25 @@ CREATE TABLE FLIGHTS (
     Price               int,
     primary key (FlightNumber)
 );
+
+DROP IF TABLE EXISTS CREDIT_CARD;
+
+CREATE TABLE CREDIT_CARD (
+    CreditNumber    varchar(16),
+    Cvc             varchar(3),
+    ExpirationDate  varchar(10),
+    Balance            int,
+    primary key (CreditNumber)
+);
+
+INSERT INTO CREDIT_CARD(CreditNumber, Cvc, ExpirationDate, Balance)
+VALUES
+('9499236471145148', '153', '03/26', 1000)
+('4992837288837461', '240', '11/26', 550)
+('9928372638463827', '199', '03/25', 800)
+('3827828448284738', '353', '02/25', 2000)
+('9738364828364382', '224', '10/27', 200)
+
 
 ALTER TABLE FLIGHTS AUTO_INCREMENT = 1000;
 
