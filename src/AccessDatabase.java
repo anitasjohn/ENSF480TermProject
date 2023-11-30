@@ -299,11 +299,54 @@ public class AccessDatabase {
         return true; // if inserted successfully
     }
 
+    // // get passengers given a flight number
+    // // returns a list of ticket holders STRING
+    // // ALTERNATIVELY, input are flight number and ticket number to get specific passenger
+    // public ArrayList<String> fetchTicketHolders(int flightNum){
+    //     ArrayList<String> holders = new ArrayList<>();
+    //     int ticketNum ,flightNumber, seatNum;
+    //     String holder;
+    //     boolean is_insured;
+
+    //     try {
+    //         PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM TICKETS WHERE FlightNumber = ?");
+    //         myStmt.setInt(1, flightNum);
+    //         results = myStmt.executeQuery();
+
+    //         while(results.next()){
+
+    //             ticketNum = results.getInt("TicketNum");
+    //             flightNumber = results.getInt("FlightNumber");
+    //             holder = results.getString("FName");
+    //             seatNum = results.getInt("SeatNum");
+    //             is_insured = results.getBoolean("Is_insured");
+    //             String ticket = "Ticket Number: " + ticketNum + "   Flight Number: " + flightNumber + 
+    //                                 "   Holder: " + holder + "   Seat: " + seatNum + "   Insured: " + is_insured;
+    //             holders.add(ticket);
+    //         }
+
+    //         myStmt.close();
+
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }finally {
+    //         try {
+    //              if(dbConnect != null){
+    //                 dbConnect.close();
+    //              }
+    //         } catch (Exception e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+
+    //     return holders;
+    // }
+
     // get passengers given a flight number
-    // returns a list of ticket holders
+    // returns a list of ticket holders STRING
     // ALTERNATIVELY, input are flight number and ticket number to get specific passenger
-    public ArrayList<String> fetchTicketHolders(int flightNum){
-        ArrayList<String> holders = new ArrayList<>();
+    public ArrayList<Ticket> fetchTicketHolders(int flightNum){
+        ArrayList<Ticket> holders = new ArrayList<>();
         int ticketNum ,flightNumber, seatNum;
         String holder;
         boolean is_insured;
@@ -320,8 +363,7 @@ public class AccessDatabase {
                 holder = results.getString("FName");
                 seatNum = results.getInt("SeatNum");
                 is_insured = results.getBoolean("Is_insured");
-                String ticket = "Ticket Number: " + ticketNum + "   Flight Number: " + flightNumber + 
-                                    "   Holder: " + holder + "   Seat: " + seatNum + "   Insured: " + is_insured;
+                Ticket ticket = new Ticket(flightNumber, ticketNum,  holder, seatNum, is_insured);
                 holders.add(ticket);
             }
 

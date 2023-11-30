@@ -9,14 +9,15 @@
 public class Ticket {
     private Flight flight;
     private String holder;
-    private String seatNum;
+    private int seatNum;
     private boolean insured;
+    private int ticketNum;
     private int flightNum;
 
     AccessDatabase database = AccessDatabase.getOnlyInstance();
 
     // used when generating a NEW ticket
-    public Ticket(Flight flight, String FName, String seat, boolean insured) {
+    public Ticket(Flight flight, String FName, int seat, boolean insured) {
         this.flight = flight;
         this.holder = FName;
         this.seatNum = seat;
@@ -28,8 +29,9 @@ public class Ticket {
 
     // only used by fetchTicketHolders() in AccessDatabase.java
     // only used when fetching the ticket holders for a specific flight 
-    public Ticket(int flightNum, String FName, String seat, boolean insured) {
+    public Ticket(int flightNum, int ticketNum, String FName, int seat, boolean insured) {
         this.flightNum = flightNum;
+        this.ticketNum = ticketNum;
         this.holder = FName;
         this.seatNum = seat;
         this.insured = insured;
@@ -51,7 +53,7 @@ public class Ticket {
         this.holder = name;
     }
 
-    public String getSeatNum(){
+    public int getSeatNum(){
         return this.seatNum;
     }
 
