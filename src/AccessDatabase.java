@@ -4,11 +4,15 @@
  * Submission: November 29, 2023
  */
 
+// SINGLETON PATTERN
 
 import java.sql.*;
 import java.util.*;
 
+import javax.swing.SingleSelectionModel;
+
 public class AccessDatabase {
+    private static AccessDatabase onlyInstance;
     public final String DBURL;
     public final String USERNAME;
     public final String PASSWORD;
@@ -16,20 +20,20 @@ public class AccessDatabase {
     private Connection dbConnect;
     private ResultSet results;
 
-    public AccessDatabase(){
+    private AccessDatabase(){
         DBURL = "jdbc:mysql://localhost/flight_system";
         USERNAME = "ENTER USERNAME HERE";
         PASSWORD = "ENTER PASSWORD";
     }
 
-    public AccessDatabase(String url, String user, String pw) {
-        // Database URL
-        this.DBURL = url;
+    // public AccessDatabase(String url, String user, String pw) {
+    //     // Database URL
+    //     this.DBURL = url;
 
-        // Database credentials
-        this.USERNAME = user;
-        this.PASSWORD = pw;
-    }
+    //     // Database credentials
+    //     this.USERNAME = user;
+    //     this.PASSWORD = pw;
+    // }
 
     // Create a connection to the database
     public void initializeConnection() {
@@ -39,6 +43,14 @@ public class AccessDatabase {
 			System.out.println("Failed to connect to database");
             e.printStackTrace();
         }
+    }
+
+    public static AccessDatabase getOnlyInstance() {
+        if (onlyInstance == null){
+            onlyInstance = new AccessDatabase();
+        };
+        
+        return onlyInstance;
     }
 
     String getDburl() {

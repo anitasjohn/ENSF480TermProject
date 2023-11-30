@@ -14,7 +14,7 @@ public class Users {
     private Name name;
 
     // replace args with your own
-    private AccessDatabase database = new AccessDatabase();
+    private AccessDatabase database = AccessDatabase.getOnlyInstance();
 
     // Users ctor for registration 
     Users(String firstName, String lastName, String email, String password, String streetAddress, String postalCode, String city, String province, String country){
@@ -43,5 +43,7 @@ public class Users {
     public void setNewPassword(String newPass){
         this.loginPassword = newPass;
     }
+
+    
 
 }

@@ -5,7 +5,7 @@
  */
 
 public class AirlineAgentLogin {
-    private AccessDatabase database = new AccessDatabase();
+    private AccessDatabase database = AccessDatabase.getOnlyInstance();
 
     public boolean validate(String email, String passcode){
         //Checks if any matches in database of logins
