@@ -1,3 +1,4 @@
+package Users;
 /**
  * File: Users.java
  * Created By: Group 11 (L03 B03)
@@ -26,7 +27,7 @@
      }
      */
 
-     Users(String firstName, String lastName, String email, String password, String streetAddress){
+     public Users(String firstName, String lastName, String email, String password, String streetAddress){
         this.name = new Name(firstName, lastName);
         this.userEmail = new Email(email);
         this.loginPassword = password;

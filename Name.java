@@ -1,3 +1,4 @@
+package Users;
 /**
  * File: Name.java
  * Created By: Group 11 (L03 B03)
@@ -8,7 +9,7 @@ public class Name {
     private String firstName;
     private String lastName;
 
-    Name(String first, String last){
+    public Name(String first, String last){
         this.firstName = first;
         this.lastName = last;
     }

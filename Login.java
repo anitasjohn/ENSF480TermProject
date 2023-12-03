@@ -1,4 +1,9 @@
+package Users;
 import java.util.ArrayList;
+
+import BookingSystem.Ticket;
+import BookingSystem.Wallet;
+import Login.Check;
 /**
  * File: Login.java
  * Created By: Group 11 (L03 B03)
@@ -23,6 +28,7 @@ public class Login {
     
     private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
     private ArrayList<Wallet> wallet = new ArrayList<Wallet>();
+
     private Ticket recentlyPurchased;
     private Wallet cardUsed;
 

@@ -1,5 +1,10 @@
+package Users;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import GUI.LoginGUI;
+import GUI.PaymentGUI;
+import GUI.PaymentReceiptGUI;
 
 
 public class PopUp {

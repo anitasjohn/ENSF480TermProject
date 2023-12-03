@@ -1,3 +1,4 @@
+package Users;
 /**
  * File: Email.java
  * Created By: Group 11 (L03 B03)
@@ -8,7 +9,7 @@
  public class Email{
     private String emailAddress;
 
-    Email(String email){
+    public Email(String email){
         this.emailAddress = email;
     }
 

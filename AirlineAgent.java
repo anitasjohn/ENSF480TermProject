@@ -1,10 +1,11 @@
+package Users;
 /**
  * File: FlightAttendant.java
  * Created By: Group 11 (L03 B03)
  * Submission: November 29, 2023
  */
 /*  Has to access the database. */
-class AirlineAgent  {
+public class AirlineAgent  {
     private int airlineNumber;
     private Name name;
     private Email airlineEmail; 
