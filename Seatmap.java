@@ -1,3 +1,4 @@
+package BookingSystem;
 /**
  * File: Address.java
  * Created By: Group 11 (L03 B03)
@@ -5,6 +6,8 @@
  */
 
  import java.util.ArrayList;
+
+import Database.AccessDatabase;
  public class Seatmap {
      // Attributes
      private ArrayList<Seat> businessClass;

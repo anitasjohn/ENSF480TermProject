@@ -1,3 +1,4 @@
+package BookingSystem;
 /**
  * File: Address.java
  * Created By: Group 11 (L03 B03)

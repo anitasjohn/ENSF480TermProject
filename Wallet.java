@@ -1,3 +1,4 @@
+package BookingSystem;
 /**
  * File: Wallet.java
  * Created By: Group 11 (L03 B03)
@@ -13,7 +14,7 @@ public class Wallet {
     private String expDate;
     private int balance;
 
-    Wallet(String cardNum, String cvcString, String expiration, int amount){
+    public Wallet(String cardNum, String cvcString, String expiration, int amount){
         this.cardNumber = cardNum;
         this.cvc = cvcString;
         this.expDate = expiration;

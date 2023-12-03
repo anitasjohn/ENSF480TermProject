@@ -1,3 +1,4 @@
+package BookingSystem;
 public class Aircraft {
     // Attributes
     private Flight flight;
