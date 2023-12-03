@@ -1,5 +1,11 @@
+package GUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import BookingSystem.Flight;
+import Database.AccessDatabase;
+import Users.Login;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -149,6 +155,7 @@ public class FlightGUI implements ActionListener {
                 loggedIn.setDestAirport((String) flightsTable.getValueAt(selectedRow, 4));
                 loggedIn.setDuration((String) flightsTable.getValueAt(selectedRow, 5));
                 loggedIn.setFlightTime((String) flightsTable.getValueAt(selectedRow, 6));
+                frame.setVisible(true);
                 SeatGUI seatMap = new SeatGUI();
                 seatMap.setFrame(true);
             }

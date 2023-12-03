@@ -1,5 +1,10 @@
+package GUI;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import BookingSystem.Flight;
+import Database.AccessDatabase;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +20,6 @@ public class PassengersGUI implements ActionListener {
     ArrayList<Flight> flights = new ArrayList<Flight>();
     AccessDatabase db = AccessDatabase.getOnlyInstance();
     int selectedRow = -1;
-
 
     public PassengersGUI() {
         db.initializeConnection();

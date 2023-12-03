@@ -1,4 +1,10 @@
+package GUI;
 import javax.swing.*;
+
+import BookingSystem.Seat;
+import BookingSystem.Seatmap;
+import Database.AccessDatabase;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

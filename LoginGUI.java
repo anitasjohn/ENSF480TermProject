@@ -1,4 +1,15 @@
+package GUI;
 import javax.swing.*;
+
+import Database.AccessDatabase;
+import Login.UserLogin;
+import Users.AirlineAgent;
+import Login.AirlineAgentLogin;
+import Users.FlightAttendant;
+import Login.FlightAttendantLogin;
+import Users.Login;
+import Users.Users;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -124,6 +135,7 @@ public class LoginGUI implements ActionListener{
         if(requestedLogin.performStartegy()) {
             return "user";
         }
+        
         
      
     //setting the full name of the flight attendant, airline agent and user that is logged in into the Login class

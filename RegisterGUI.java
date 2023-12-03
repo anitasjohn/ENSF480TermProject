@@ -1,4 +1,11 @@
+package GUI;
 import javax.swing.*;
+
+import Database.AccessDatabase;
+import Users.Email;
+import Users.Name;
+import Users.Users;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
