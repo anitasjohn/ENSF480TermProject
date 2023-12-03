@@ -1,6 +1,7 @@
 # ENSF480TermProject
 
 ## Setup for Application Use
+Ensure flight_system.sql has been set up
 Emsure your own username and password for database access is being used
 1. Go to Database/AccessDatabase.java
 2. Change Username and Password in the constructor
