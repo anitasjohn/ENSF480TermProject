@@ -29,7 +29,7 @@ import Users.Users;
      public AccessDatabase(){
          DBURL = "jdbc:mysql://localhost:3306/FLIGHT_SYSTEM";
          USERNAME = "root";
-         PASSWORD = "ENTERPASSWORDHERE";
+         PASSWORD = "Dynamite/098";
      }
  
      public AccessDatabase(String url, String user, String pw) {
@@ -470,6 +470,29 @@ import Users.Users;
  
          return seats;
      }
+
+     //lookup if seat is available
+        public boolean isSeatAvailable(int flightNum, String seatNum){
+            try {
+                PreparedStatement myStmt = dbConnect.prepareStatement("SELECT * FROM TICKETS WHERE FlightNumber = ? AND SeatNum = ?");
+                myStmt.setInt(1, flightNum);
+                myStmt.setInt(2, Integer.parseInt(seatNum) );
+                results = myStmt.executeQuery();
+
+                if(results.next()){
+                    // get the results and print out the values
+                    System.out.println(results.getString("FName"));
+                    return false; // seat is taken
+                }
+    
+                myStmt.close();
+    
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    
+            return true; // seat is available
+        }
 
 
      public ArrayList<Wallet> fetchWallet() {

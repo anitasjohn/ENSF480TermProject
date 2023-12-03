@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class ViewPassengersGUI extends JFrame {
+    private int flightNum;
     private JTable passengerTable;
     private DefaultTableModel tableModel;
     ArrayList<String> passengers = new ArrayList<String>();
     AccessDatabase db = new AccessDatabase();
 
     public ViewPassengersGUI(int flightNum) {
+        this.flightNum = flightNum;
         db.initializeConnection();
         setTitle("Passengers Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,7 +94,7 @@ public class ViewPassengersGUI extends JFrame {
         String seatNumber = JOptionPane.showInputDialog(this, "Enter Seat Number:");
         String passengerName = JOptionPane.showInputDialog(this, "Enter Passenger Name:");
 
-        if (seatNumber != null && !seatNumber.isEmpty() && passengerName != null && !passengerName.isEmpty()) {
+        if (seatNumber != null && db.isSeatAvailable(flightNum,  seatNumber) && !seatNumber.isEmpty() && passengerName != null && !passengerName.isEmpty()) {
             Vector<Object> rowData = new Vector<>();
             rowData.add(seatNumber);
             rowData.add(passengerName);
