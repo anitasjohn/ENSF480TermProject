@@ -34,12 +34,11 @@ public class AdminGUI implements ActionListener {
         frame.setVisible(b);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton) e.getSource()).getText() == "Go back") {
             frame.setVisible(false);
-            LoginGUI login = new LoginGUI();
-            login.setFrame(true);
+            //LoginGUI login = new LoginGUI();
+            //login.setFrame(true);
         } else if(((JButton) e.getSource()).getText() == "Modify Flights") {
             //To modify flights
             System.out.println("Admin wants to modify flights");

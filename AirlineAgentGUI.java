@@ -31,7 +31,6 @@ public class AirlineAgentGUI implements ActionListener {
         frame.setVisible(b);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton) e.getSource()).getText() == "Go back") {
             frame.setVisible(false);
@@ -42,7 +41,7 @@ public class AirlineAgentGUI implements ActionListener {
             frame.setVisible(false);
             PassengersGUI p = new PassengersGUI();
             p.setFrame(true);
-        } else if(((JButton) e.getSource()).getText() == "Book a flight") {
+        } else if(((JButton) e.getSource()).getText() == "Book a Flight") {
             //to browse flights
             frame.setVisible(false);
             FlightGUI f = new FlightGUI();

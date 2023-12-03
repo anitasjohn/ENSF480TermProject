@@ -3,16 +3,26 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PassengersGUI implements ActionListener {
     private JFrame frame;
     private JPanel panel;
     private JTable flightsTable;
-    private Object[] columns = {"Flight ID", "Departure", "Destination", "Aircraft", "Duration", "Price"};
+    private Object[] columns = {"Flight ID", "Departure", "Destination", "Dep. Airport", "Dest. Airport", "Duration", "FlightTime", "Price"};
     private DefaultTableModel model;
+    ArrayList<Flight> flights = new ArrayList<Flight>();
+    AccessDatabase db = AccessDatabase.getOnlyInstance();
+    int selectedRow = -1;
 
 
     public PassengersGUI() {
+        db.initializeConnection();
+
+        flights = db.fetchFLights();
+        
+    
         frame = new JFrame();
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,15 +34,24 @@ public class PassengersGUI implements ActionListener {
         createButtonsPanel();
 
         frame.add(panel);
-        frame.setTitle("View Passengers System");
+        frame.setTitle("View Passengers");
         frame.setLocationRelativeTo(null); // Center the frame on the screen
         frame.setVisible(true);
+        db.deleteConnection();
     }
 
     private void createTablePanel() {
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         flightsTable = new JTable(model);
+        for(Flight flight: flights) {
+            Object[] row = {flight.getFlightNumber(), flight.getDeparture(), flight.getDestination(), flight.getDepartureAirport(), flight.getDestinationAirport(), flight.getDuration(), flight.getTimeOfFlight(), flight.getPrice()};
+            model.addRow(row);
+        }
+
+        flightsTable.getSelectionModel().addListSelectionListener(e -> {
+            selectedRow = flightsTable.getSelectedRow();
+        });
 
         JScrollPane tableScrollPane = new JScrollPane(flightsTable);
         tableScrollPane.setBorder(BorderFactory.createTitledBorder("Available Flights"));
@@ -65,18 +84,16 @@ public class PassengersGUI implements ActionListener {
             LoginGUI login = new LoginGUI();
             login.setFrame(true);
         } else if (e.getActionCommand().equals("View Passengers")) {
-            // Assuming there is a SeatGUI class with setFrame method
-            frame.setVisible(false);
-            ViewPassengersGUI viewPass = new ViewPassengersGUI();
-            viewPass.setFrame(true);
-        } 
-    }
 
-    private void updateTableWithSearchResults() {
-        // Add logic to update the table with search results
-        // For now, adding a dummy row for demonstration purposes
-        Object[] row = {"27109", "March 17, 2020 at 2pm", "Mexico", "Boeing 747", "2 hours", "Price"};
-        model.addRow(row);
+            if(selectedRow != -1) {
+                // Assuming there is a SeatGUI class with setFrame method
+                frame.setVisible(false);
+                //add an argument for ViewPassengersGUI
+                ViewPassengersGUI viewPass = new ViewPassengersGUI(flights.get(selectedRow).getFlightNumber());
+                viewPass.setFrame(true);
+            }
+        } 
+        db.deleteConnection();
     }
 
 }

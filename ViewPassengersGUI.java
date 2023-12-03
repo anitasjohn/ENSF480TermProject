@@ -1,20 +1,25 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class ViewPassengersGUI extends JFrame {
     private JTable passengerTable;
     private DefaultTableModel tableModel;
+    ArrayList<String> passengers = new ArrayList<String>();
+    AccessDatabase db = new AccessDatabase();
 
-    public ViewPassengersGUI() {
-        setTitle("Flight Attendant Dashboard");
+    public ViewPassengersGUI(int flightNum) {
+        db.initializeConnection();
+        setTitle("Passengers Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
+        passengers = db.fetchTicketHolders(flightNum);
         createComponents();
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+        setVisible(true); 
     }
 
     private void createComponents() {
@@ -26,10 +31,12 @@ public class ViewPassengersGUI extends JFrame {
         tableModel.addColumn("Passenger Name");
         tableModel.addColumn("Status");
 
+        for(String pass : passengers) {
+            String[] splitPass = pass.split(",");
+            tableModel.addRow(new Object[]{splitPass[0].strip(), splitPass[1].strip(), splitPass[2].strip()});
+        }
         // Add some sample data
-        tableModel.addRow(new Object[]{"1A", "John Doe", "Boarded"});
-        tableModel.addRow(new Object[]{"2B", "Jane Doe", "Not Boarded"});
-        tableModel.addRow(new Object[]{"3C", "Bob Smith", "Boarded"});
+        
 
         passengerTable = new JTable(tableModel);
         JScrollPane tableScrollPane = new JScrollPane(passengerTable);

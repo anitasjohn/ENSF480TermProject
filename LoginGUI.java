@@ -2,8 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoginGUI implements ActionListener{
+    private static Login requestedLogin;
+
+    //Flight_Attendants, Airline_agents and RegisteredUsers
+    ArrayList<FlightAttendant> flight_attendants;    
+    ArrayList<AirlineAgent> agents;
+    ArrayList<Users> users;
+
+    AccessDatabase db = AccessDatabase.getOnlyInstance();
+    //JFrame set up
     JFrame frame = new JFrame();
     JPanel panel = new JPanel();
     JTextField email = new JTextField();
@@ -21,11 +33,21 @@ public class LoginGUI implements ActionListener{
     JTextField regEmail = new JTextField();
     JPasswordField regPassword = new JPasswordField();
 
+    JLabel message = new JLabel("");
+
+
     //These are register and go back options
     JButton signBtn = new JButton("Sign up");
 
+    public static Login getLogin() {
+        return requestedLogin;
+    }
     public LoginGUI() {
-        
+        db.initializeConnection();
+        flight_attendants = db.fetchFAs();
+        agents = db.fetchAirlineAgents();
+        users = db.fetchUsers();
+        db.deleteConnection();
         JLabel userLabel = new JLabel("Email");
         JLabel passwordLabel = new JLabel("Password");
 
@@ -68,6 +90,9 @@ public class LoginGUI implements ActionListener{
         browseBtn.setBounds(230, 80, 150, 25);
         browseBtn.addActionListener(this);
 
+        message.setBounds(100, 110, 300, 25);
+        panel.add(message);
+
         panel.setLayout(null);
         panel.add(email);
         panel.add(password);
@@ -76,78 +101,97 @@ public class LoginGUI implements ActionListener{
         panel.add(browseBtn);       
         panel.add(userLabel);
         panel.add(passwordLabel);
-        /*
-        panel.add(firstName);
-        panel.add(lastName);
-        panel.add(addressLabel);
-        panel.add(regEmailLabel);
-        panel.add(regPasswordLabel);
-    
-        panel.add(name);
-        panel.add(surname);
-        panel.add(address);
-        panel.add(regEmail);
-        panel.add(regPassword);
-        */
         frame.setVisible(true);
     }  
     
 
     //this function is primarily used to track the current user.
     public String typeofuser() {
-        String typedEmail = email.getText();
-        if(typedEmail.contains("admin")) {
-            return "admin";
-        } else if(typedEmail.contains("airline")) {
-            return "airline-agent";
-        } else if(typedEmail.contains("flight")) {
+        String typedEmail = email.getText().strip();
+        char[] typedPassword = password.getPassword();
+
+        requestedLogin = new Login(typedEmail, new String(typedPassword));
+        
+        requestedLogin.setLoginStrategy(new FlightAttendantLogin());
+        if(requestedLogin.performStartegy()) {
             return "flight-attendant";
-        }else if(typedEmail.contains("user")) {
+        }
+        requestedLogin.setLoginStrategy(new AirlineAgentLogin());
+        if(requestedLogin.performStartegy()) {
+            return "airline-agent";
+        }
+        requestedLogin.setLoginStrategy(new UserLogin());
+        if(requestedLogin.performStartegy()) {
             return "user";
         }
-        else {
-            return "";
+        
+     
+    //setting the full name of the flight attendant, airline agent and user that is logged in into the Login class
+    for (FlightAttendant fa : flight_attendants) {
+        if (typedEmail.equals(fa.getFlightAttendantEmail().getEmail().strip()) && Arrays.equals(typedPassword, (fa.getFlightAttendantPasscode()).toCharArray())) {
+            requestedLogin.setFName(fa.getName().getFullName());
         }
     }
+
+    for (AirlineAgent aa : agents) {
+        if (typedEmail.equals(aa.getAirlineEmail().getEmail().strip()) && Arrays.equals(typedPassword, (aa.getAirlinePassword()).toCharArray())) {
+            requestedLogin.setFName(aa.getName().getFullName());
+        }
+    }
+
+    for (Users user : users) {
+        if (typedEmail.equals(user.getUserEmail().strip()) && Arrays.equals(typedPassword, (user.getPassword()).toCharArray())) {
+            requestedLogin.setFName(user.getUserName());
+        }
+    }
+
+    return "";
+
+}
 
     public void setFrame(boolean b) {
         frame.setVisible(b);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
         if(((JButton) e.getSource()).getText() == "Login") {
             if(typeofuser() == "admin") {
+                requestedLogin.setUser("admin");
                 frame.setVisible(false);
                 AdminGUI a = new AdminGUI();
                 a.setFrame(true);
-            } else if(typeofuser() == "airline-agent") { 
+            } else if(typeofuser() == "airline-agent") {
+                requestedLogin.setUser("airline-agent");
                 frame.setVisible(false);
                 AirlineAgentGUI agentFrame = new AirlineAgentGUI();
                 agentFrame.setFrame(true);
             } else if(typeofuser() == "flight-attendant") {
+                requestedLogin.setUser("flight-attendant");
                 frame.setVisible(false);
                 PassengersGUI p = new PassengersGUI();
                 p.setFrame(true);
             } else if(typeofuser() == "user") {
+                requestedLogin.setUser("user");
                 frame.setVisible(false);
                 FlightGUI f = new FlightGUI();
                 f.setFrame(true);
+            } else {
+                message.setText("Invalid Login. Please Try again.");
             }
-
         } else if(((JButton) e.getSource()).getText() == "Register") {
             frame.setVisible(false);
             RegisterGUI registerFrame = new RegisterGUI();
             registerFrame.setFrame(true);
         }  else {
+            requestedLogin = new Login(" ", " ");
+            requestedLogin.setUser("guest");
             frame.setVisible(false);
             FlightGUI flightFrame = new FlightGUI();
             flightFrame.setFrame(true);
         }
         
     }
-};
+}
 
     
 

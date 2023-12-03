@@ -3,17 +3,30 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class FlightGUI implements ActionListener {
+    Login loggedIn = LoginGUI.getLogin();
     String user;
     private JFrame frame;
     private JPanel panel;
     private JTable flightsTable;
-    private Object[] columns = {"Flight ID", "Departure", "Destination", "Aircraft", "Duration", "Price"};
+    private Object[] columns = {"Flight ID", "Departure", "Destination", "Dep. Airport", "Dest. Airport","Duration", "FlightTime", "Price"};
     private DefaultTableModel model;
+    JTextField destination = new JTextField(10);
+    JTextField originOptions = new JTextField(10);
+    JComboBox<String> prices = new JComboBox<>(new String[]{"Ordinary", "Comfort", "Business"});
+    ArrayList<Flight> flights;
 
+
+    //to see if the track clicked on a flight
+    int selectedRow = -1;
+
+    AccessDatabase db;
 
     public FlightGUI() {
+        db = AccessDatabase.getOnlyInstance();
+        db.initializeConnection();
         frame = new JFrame();
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,10 +46,6 @@ public class FlightGUI implements ActionListener {
 
     private void createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout()); // FlowLayout for a single line
-
-        JTextField originOptions = new JTextField(10);
-        JTextField destination = new JTextField(10);
-
         String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
         String[] years = {"2023", "2024"};
@@ -48,8 +57,7 @@ public class FlightGUI implements ActionListener {
         JComboBox<String> daysOptions = new JComboBox<>(days);
         JComboBox<String> yearsOptions = new JComboBox<>(years);
         JLabel priceLabel = new JLabel("Seating Price:");
-        JComboBox<String> prices = new JComboBox<>(new String[]{"Ordinary", "Comfort", "Business-Class"});
-
+        
         topPanel.add(originLabel);
         topPanel.add(originOptions);
         topPanel.add(destLabel);
@@ -68,26 +76,41 @@ public class FlightGUI implements ActionListener {
         model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         flightsTable = new JTable(model);
-
+        flightsTable.getSelectionModel().addListSelectionListener(e -> {
+            selectedRow = flightsTable.getSelectedRow();
+        });
+    
         JScrollPane tableScrollPane = new JScrollPane(flightsTable);
         tableScrollPane.setBorder(BorderFactory.createTitledBorder("Available Flights"));
         panel.add(tableScrollPane, BorderLayout.CENTER);
     }
 
     private void createButtonsPanel() {
-        JPanel buttonsPanel = new JPanel();
+        JPanel buttonsPanel = new JPanel(); // Left-aligned FlowLayout
+    
         JButton searchBtn = new JButton("Search");
         JButton nextBtn = new JButton("Next");
         JButton backBtn = new JButton("Go back");
-
+        JButton viewPromoBtn = new JButton("View Promos");
+    
         searchBtn.addActionListener(this);
         nextBtn.addActionListener(this);
         backBtn.addActionListener(this);
-
+        viewPromoBtn.addActionListener(this);
+    
         buttonsPanel.add(searchBtn);
         buttonsPanel.add(nextBtn);
         buttonsPanel.add(backBtn);
 
+        // Add an empty panel to absorb extra space
+        JPanel emptyPanel = new JPanel();
+        buttonsPanel.add(emptyPanel);
+    
+        if(loggedIn.getUser() == "user") {
+            // Add viewPromoBtn to the right
+            buttonsPanel.add(viewPromoBtn);
+        }
+    
         panel.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
@@ -101,8 +124,8 @@ public class FlightGUI implements ActionListener {
     public String getUser() {
         return user;
     }
+    
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Go back")) {
             frame.setVisible(false);
@@ -111,20 +134,58 @@ public class FlightGUI implements ActionListener {
             login.setFrame(true);
         } else if (e.getActionCommand().equals("Next")) {
             // Assuming there is a SeatGUI class with setFrame method
-            SeatGUI seatMap = new SeatGUI();
-            seatMap.setFrame(true);
+            if(selectedRow != -1) {
+                String seat = ((String)prices.getSelectedItem()).strip();
+                loggedIn.setTypeOfSeat(seat);
+                int flightNo = (int)flightsTable.getValueAt(selectedRow, 0);
+                loggedIn.setFlight(flightNo);
+                int price = (int)flightsTable.getValueAt(selectedRow, 7);
+                loggedIn.setPrice(price);
+
+                //Storing arguments for the flight
+                loggedIn.setDeparture((String) flightsTable.getValueAt(selectedRow, 1));
+                loggedIn.setDestination((String) flightsTable.getValueAt(selectedRow, 2));
+                loggedIn.setDeptAirport((String)flightsTable.getValueAt(selectedRow, 3));
+                loggedIn.setDestAirport((String) flightsTable.getValueAt(selectedRow, 4));
+                loggedIn.setDuration((String) flightsTable.getValueAt(selectedRow, 5));
+                loggedIn.setFlightTime((String) flightsTable.getValueAt(selectedRow, 6));
+                SeatGUI seatMap = new SeatGUI();
+                seatMap.setFrame(true);
+            }
         } else if (e.getActionCommand().equals("Search")) {
             // Add your search logic here
             // For example, update the table with search results
             updateTableWithSearchResults();
+        } else if(e.getActionCommand().equals("View Promos")) {
+            String message = "Sent on December 1st, 2023:\n\nYou get access to the airport lounges for 40% off.\nYou receive a free companion ticket once a year.\nYou are automatically applied for the cancellation insurance.";
+            JOptionPane.showMessageDialog(null, message, "Registered User Promos", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
     private void updateTableWithSearchResults() {
+        int current_row_count = model.getRowCount();
+        if(current_row_count != 0) {
+            for(int i = 0; i < current_row_count; i++) {
+                model.removeRow(0);
+            }
+        }
+        if(destination.getText() != "" && originOptions.getText() != "") {
+            int amount;
+            flights = db.fetchFLights(destination.getText());
+            for(Flight flight: flights) {
+                String seat = ((String)prices.getSelectedItem()).strip();
+                if(seat == "Comfort") {
+                    amount = flight.getPrice() * 2;
+                } else if(seat == "Business") {
+                    amount = flight.getPrice() * 3;
+                } else {
+                    amount = flight.getPrice();
+                }
+                Object[] row = {flight.getFlightNumber(), flight.getDeparture(), flight.getDestination(), flight.getDepartureAirport(), flight.getDestinationAirport(), flight.getDuration(), flight.getTimeOfFlight() , amount};
+                model.addRow(row);
+            }
+        }
         // Add logic to update the table with search results
-        // For now, adding a dummy row for demonstration purposes
-        Object[] row = {"27109", "March 17, 2020 at 2pm", "Mexico", "Boeing 747", "2 hours", "Price"};
-        model.addRow(row);
     }
 
 }
