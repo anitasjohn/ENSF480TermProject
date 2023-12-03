@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import GUI.LoginGUI;
+
 import java.sql.*;
 
 public class App {
@@ -6,4 +9,4 @@ public class App {
         LoginGUI login = new LoginGUI();
     }
 }
- 
+
