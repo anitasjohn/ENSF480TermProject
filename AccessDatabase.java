@@ -1,3 +1,4 @@
+package Database;
 /**
  * File: Address.java
  * Created By: Group 11 (L03 B03)
@@ -5,8 +6,16 @@
  */
  import java.sql.*;
  import java.util.*;
-
  import javax.swing.SingleSelectionModel;
+
+import BookingSystem.Flight;
+import BookingSystem.Seat;
+import BookingSystem.Wallet;
+import Users.AirlineAgent;
+import Users.Email;
+import Users.FlightAttendant;
+import Users.Name;
+import Users.Users;
  
  public class AccessDatabase {
      private static AccessDatabase onlyInstance;
