@@ -480,8 +480,6 @@ import Users.Users;
                 results = myStmt.executeQuery();
 
                 if(results.next()){
-                    // get the results and print out the values
-                    System.out.println(results.getString("FName"));
                     return false; // seat is taken
                 }
     
